@@ -1,20 +1,63 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# FastAPI Resource Performance Predictor
+This project is a FastAPI server that predicts future CPU and RAM usage based on recent performance data.
+It loads trained TensorFlow models and scalers to make 6-step ahead forecasts.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Project Structure
+```bash
+/AIServerAIServer
+    |- main.py
+    |- requirements.txt
+    |- Dockerfile
+    |- docker-compose.yml
+    |- README.md
+    |- /model
+         |- model_cpu.keras
+         |- model_ram.keras
+         |- scaler_X.pkl
+         |- scaler_y.pkl
+         |- scaler_X_ram.pkl
+         |- scaler_y_ram.pkl
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+```
+## Requirements (If running locally)
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- Python 3.10+
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+- Docker (for containerization)
+
+- TensorFlow
+
+- FastAPI
+
+- Uvicorn
+
+- Pandas
+
+- NumPy
+
+- scikit-learn
+
+- joblib
+
+- python-multipart
+
+### Install requirements manually:
+```bash
+pip install -r requirements.txt
+```
+## How to Build and Run with Docker
+### 1. Build Docker Image
+Open a terminal (Command Prompt or PowerShell), navigate to the project directory, and build the image:
+```bash
+docker build -t fastapi-predictor .
+```
+- "-t" fastapi-predictor sets the image name.
+
+- "." means build context is current directory.
+### 2. Run Docker Container
+Start the container mapping container's port 8000 to your local port 8000:
+```bash
+docker run -d -p 8000:8000 fastapi-predictor
+```
+## License
+This project is for educational and internal usage.

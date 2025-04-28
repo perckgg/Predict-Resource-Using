@@ -1,0 +1,15 @@
+version: '3.12'
+
+services:
+  fastapi-predictor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi-predictor
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ./model:/app/model  
+    environment:
+      - TZ=Asia/Ho_Chi_Minh  

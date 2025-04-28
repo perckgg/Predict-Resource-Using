@@ -47,7 +47,7 @@ class CpuData(BaseModel):
     uptime: str  # Giữ nguyên kiểu float theo yêu cầu AI server
     # Thêm các trường khác nếu cần
 class PerformanceRecord(BaseModel):
-    scantime: datetime
+    scantime: str
     cpu: CpuData
     ram: Dict[str, float]
     network: Dict[str, int]
@@ -83,6 +83,7 @@ class FeatureProcessor:
         
         new_df['is_weekday'] = (df['scantime'].dt.weekday < 5).astype(int)
         new_df['hour'] = df['scantime'].dt.hour
+        new_df['minute'] = df['scantime'].dt.minute
         new_df['is_working_hour'] = df['scantime'].dt.hour.between(8, 18).astype(int)
         print(new_df)
         return new_df
@@ -141,14 +142,14 @@ async def predict_performance(data: PerformanceRequest):
         # Define feature sets
         cpu_features = [
             'cpu_utilization', 'cpu_processes', 'is_working_hour', 
-            'ram_percent', 'hour', 'delta_processes', 
+            'ram_percent', 'hour','minute', 'delta_processes', 
             'delta_cpu', 'is_after_boot', 'is_weekday'
         ]
         
         ram_features = [
             'ram_percent', 'is_working_hour', 'is_weekday', 
             'is_after_boot', 'delta_ram', 'delta_cpu',
-            'cpu_utilization', 'cpu_processes'
+            'cpu_utilization', 'cpu_processes','hour','minute'
         ]
         
         # Make predictions
